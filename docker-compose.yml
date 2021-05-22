@@ -1,0 +1,15 @@
+version: "3"
+services:
+  nginx-proxy:
+    image: nginx
+    container_name: nginx
+    privileged: true
+    restart: always
+    ports:
+      - "8001:80"
+      - "4434:443"
+    volumes:
+      - /home/nginx/conf.d:/etc/nginx/conf.d
+      - /home/nginx/cert:/etc/nginx
+      - /home/nginx/logs:/usr/local/nginx/logs
+

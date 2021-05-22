@@ -1,0 +1,30 @@
+#user root;
+worker_processes  1;
+events {
+    worker_connections  1024;
+}
+http {
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+    underscores_in_headers on;
+    log_format main escape=json '{ "@timestamp": "$time_iso8601", '
+    '"remote_addr": "$remote_addr",'
+    '"request_time": "$request_time",'
+    '"upstream_response_time": "$upstream_response_time",'
+    '"status": $status,'
+    '"x_forwarded": "$http_x_forwarded_for",'
+    '"http_referer": "$http_referer",'
+    '"request": "$request",'
+    '"http_origin": "$http_origin",'
+    '"upstream_addr": "$upstream_addr",'
+    '"body_bytes_sent":$body_bytes_sent,'
+    '"request_body":$request_body,'
+    '"http_user_agent": "$http_user_agent" }';
+    access_log /usr/local/nginx/logs/access.log main;
+    error_log /usr/local/nginx/logs/error.log ;
+    include conf.d/*.conf;
+    proxy_temp_path /usr/local/nginx/proxy_temp;
+    proxy_cache_path /usr/local/nginx/proxy_cache levels=1:2 keys_zone=cache_one:100m inactive=1d max_size=1g;
+    server_tokens  off;
+}

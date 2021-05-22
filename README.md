@@ -1,0 +1,2 @@
+- cert存放证书和主配置文件nginx.conf
+- conf.d存放虚拟主机配置，代理hexo
