@@ -6,8 +6,8 @@ services:
     privileged: true
     restart: always
     ports:
-      - "8001:80"
-      - "4434:443"
+      - "8001:8001"
+      - "4434:4434"
     volumes:
       - /home/nginx/conf.d:/etc/nginx/conf.d
       - /home/nginx/cert:/etc/nginx
